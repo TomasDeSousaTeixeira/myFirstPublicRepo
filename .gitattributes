@@ -1,0 +1,3 @@
+# Normalize line endings for all files
+* text=auto
+*.md text eol=lf
