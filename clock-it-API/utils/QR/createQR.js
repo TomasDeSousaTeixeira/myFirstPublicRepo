@@ -1,4 +1,4 @@
-import sql from "../../db/connection.js";
+import db from "../../db/connection.js";
 import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import { isQrAvailable, deleteQr } from "./QRService.js";
@@ -14,8 +14,18 @@ export async function createQrData(req, res) {
       SECRET_KEY
     ).toString();
 
-    await sql`INSERT INTO active_qr_codes (qr) VALUES (${encryptedData})`;
-
+    const query=`INSERT INTO active_qr_codes (qr) VALUES (?)`;
+    const params = [encryptedData];
+    
+    await new Promise((resolve, reject) => {
+      db.run(query, params, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
     // Set a timeout to delete token if not used
     setTimeout(async () => {
       const qrIsAvailable = await isQrAvailable(encryptedData);

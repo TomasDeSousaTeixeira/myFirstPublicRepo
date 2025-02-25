@@ -1,23 +1,31 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import sql from "../../db/connection.js";
+import db from "../../db/connection.js"; // Import the SQLite connection
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const result = await sql`SELECT * FROM users WHERE username = ${username}`;
-    const user = result[0];
 
+    
+    const user = await new Promise((resolve, reject) => {
+      db.get("SELECT * FROM users WHERE username = ?", [username], (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+     
     if (user && (await bcrypt.compare(password, user.password))) {
+   
       const accessToken = jwt.sign({ username: user.username }, SECRET_KEY, {
         expiresIn: "1d",
       });
-
       const refreshToken = jwt.sign({ username: user.username }, SECRET_KEY, {
         expiresIn: "7d",
       });
@@ -35,7 +43,7 @@ export const login = async (req, res) => {
         sameSite: "Strict",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days (matches refresh token expiry)
       });
-
+  
       res.status(200).json({
         message: "Login successful",
         userID: user.id,

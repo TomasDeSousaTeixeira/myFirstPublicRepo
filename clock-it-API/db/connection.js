@@ -1,14 +1,19 @@
-import postgres from 'postgres';
-import dotenv from "dotenv";
+import sqlite3 from 'sqlite3'
 
-dotenv.config({ path: ".env.local" });
-const DB_CONNECTION_PASSWORD = process.env.DB_CONNECTION_PASSWORD;
-const sql = postgres({
-    host: 'localhost',
-    port: 5432,
-    database: 'postgres',
-    username: 'postgres',
-    password: DB_CONNECTION_PASSWORD, // .env.local variable
+const db = new sqlite3.Database("./testDatabase.db", (err) => {
+  if(err){return console.log(err)
+  }
+    console.log("Connection to database established")
+})
+process.on('SIGINT', shutdown); 
+process.on('SIGTERM', shutdown); 
+
+function shutdown() {
+  db.close((err) => {
+    if (err) console.error(err);
+    else console.log('Database connection closed.');
+    process.exit(0);
   });
-  
-export default sql;
+}
+
+export default db;

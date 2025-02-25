@@ -1,4 +1,4 @@
-import sql from "../../db/connection.js";
+import db from "../../db/connection.js";
 import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import { isQrAvailable, deleteQr } from "../../utils/QR/QRService.js"; 
@@ -49,11 +49,24 @@ export const insertLog = async (req, res) => {
     }
 
     // Insert log into the database
-    const result = await sql`
+    const query =`
       INSERT INTO logs (user_id, date, time, action)
-      VALUES (${id}, CURRENT_DATE, CURRENT_TIME, ${action})`;
-
-    // Delete token after a successful scan
+      VALUES (?, date(), time(), ?)
+      `;
+    
+    const params = [id, action];
+    
+    await new Promise((resolve, reject) => {
+      db.run(query, params, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+    
+      // Delete token after a successful scan
     await deleteQr(encryptedData);
 
     // Emit socket event to notify front-end
