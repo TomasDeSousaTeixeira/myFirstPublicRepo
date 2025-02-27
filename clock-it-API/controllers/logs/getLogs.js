@@ -13,7 +13,7 @@ export const getLogs = async (req, res) => {
    
     res
       .status(500)
-      .json({ message: "Failed to get personal logs. Please try again." });
+      .json({ message: "Failed to get personal logs. Error: "+ error.message });
   }
 }
 
@@ -32,6 +32,6 @@ export const getLastLogs = async (req, res) => {
 
     res
       .status(500)
-      .json({ message: "Failed to get latest logs. Please try again." });
+      .json({ message: "Failed to get latest logs. Error: "+ error.message });
   }
 }

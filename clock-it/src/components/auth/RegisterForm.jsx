@@ -27,7 +27,7 @@ function RegisterForm() {
      navigate('/');
     
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   };
 

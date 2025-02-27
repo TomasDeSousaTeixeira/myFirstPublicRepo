@@ -43,8 +43,7 @@ function LoginForm() {
      
     }
     } catch (error) {
-      console.error("Error during login:", error);
-      alert("Login failed! Please check your username and password.");
+      alert(error.message);
     }
   };
 

@@ -76,6 +76,6 @@ export const insertLog = async (req, res) => {
     console.error("Error adding log:", error);
     res
       .status(500)
-      .json({ message: "Failed to add the log. Please try again." });
+      .json({ message: "Failed to add the log. Error: "+ error.message });
   }
 };

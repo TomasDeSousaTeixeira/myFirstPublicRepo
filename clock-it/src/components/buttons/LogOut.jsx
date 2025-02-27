@@ -12,10 +12,11 @@ export default function LogOutButton() {
   async function logOut() {
     try {
       const response = await logOutUser()
-      const data = await response.json()
-      console.log(data.message)
+      const responseData = await response.json();
+     
      
       if(response.status == 200){
+       alert(responseData.message)
         setUser(null);
         setId(null);
         navigate("/");

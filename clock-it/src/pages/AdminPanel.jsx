@@ -10,19 +10,22 @@ const QRCodeScanner = () => {
   const lastScanTimeRef = useRef(0);
 
   async function clockToApi(qrData) {
-    const response = await clockUser(qrData);
-
-    if (response) {
-        if (response.error) {
-            alert(response.message); 
-        } else {
-            const actionText = response.action === "I" ? "IN" : "OUT";
-            alert(`User clocked ${actionText} successfully!`);
-        }
-    } else {
-        alert("Failed to clock user."); 
+    try{
+        const response = await clockUser(qrData);
+        if (!response.ok) {
+          console.log("entrámos aqui no !response.ok!!!!")
+          const errorData = await response.json();
+          throw new Error("Logout failed: ",errorData.message);
+          }else{
+          const responseData = await response.json();
+          const actionText = responseData.action === "I" ? "IN" : "OUT";
+          alert(`User clocked ${actionText} successfully!`);
+          }
+        }catch(err){
+         alert("Failed to clock user.", err.message); 
     }
   }
+
   useEffect(() => {
     if (!videoRef.current) return;
 

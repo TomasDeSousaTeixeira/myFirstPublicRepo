@@ -23,11 +23,11 @@ export async function createQrData(req, res) {
         await deleteQr(encryptedData);
         console.log(`Expired QR deleted: ${encryptedData}`);
       }
-    }, 50000); 
+    }, 60000); 
 
     res.status(200).json({ message: "QR Data generated successfully", data: encryptedData });
   } catch (error) {
     console.error("Error generating QR Data:", error);
-    res.status(500).json({ message: "Failed to generate QR Data. Error message: " + error });
+    res.status(500).json({ message: "Failed to generate QR Data. Error: " + error.message });
   }
 }

@@ -1,22 +1,29 @@
 import { requestNewAccessToken } from "../auth/requestNewAccessToken";
 export async function clockUser(qrData) {
+  try{ 
     const response = await fetch("https://localhost:5000/insertLog", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ encryptedData: qrData }),
-    });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ encryptedData: qrData }),
+      });
 
-    if (response.status === 403) {
-        return await requestNewAccessToken(clockUser, qrData);
+      if (response.status === 403) {
+          return await requestNewAccessToken(clockUser, qrData);
+        }
+
+      if (response.ok) {
+        console.log("entrámosno response ok do script")
+          
+
+          return response;
+      } else {
+        console.log("entrámosno response not ok do script")
+        const errorData = await response.json();
+        throw new Error("Logout failed: ",errorData.message);
       }
-
-    if (response.ok) {
-        const responseData = await response.json(); 
-
-        return responseData;
-    } else {
-      const errorData = await response.json();
-      return { error: true, message: errorData.message };
+  }catch(err){
+        console.error("Error during Clock action:", err);
+        throw err
     }
-  }
+}

@@ -25,7 +25,7 @@ function MyLogs() {
       }
       setLoading(false);
     } catch (err) {
-      console.error("Error fetching logs:", err);
+      console.error("Error fetching logs:", err.message);
     }
   }
   return (

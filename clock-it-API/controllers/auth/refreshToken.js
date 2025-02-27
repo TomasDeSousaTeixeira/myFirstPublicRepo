@@ -8,7 +8,7 @@ export const refreshToken = async (req, res) => {
       const refreshToken = req.cookies?.refreshToken;
   
       if (!refreshToken) {
-        return res.status(401).json({ error: "No refresh token provided." });
+        return res.status(401).json({ message: "No refresh token provided." });
       }
   
       // Verify the refresh token
@@ -16,7 +16,7 @@ export const refreshToken = async (req, res) => {
         if (err) {
           return res
             .status(403)
-            .json({ error: "Invalid or expired refresh token." });
+            .json({ message: "Invalid or expired refresh token." });
         }
   
         // Generate a new access token
@@ -36,6 +36,6 @@ export const refreshToken = async (req, res) => {
       });
     } catch (error) {
       console.error("Error during token refresh:", error);
-      res.status(500).json({ error: "Server error", details: error.message });
+      res.status(500).json({ message: "Server error: " + error.message });
     }
   };

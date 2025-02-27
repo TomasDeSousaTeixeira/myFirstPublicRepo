@@ -5,10 +5,13 @@ export async function logOutUser() {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error("Logout failed: ",errorData.message);
+    }
     return response;
   } catch (error) {
     console.error("Error during logout:", error);
-    alert("Logout failed!");
+    throw error
   }
 }

@@ -9,11 +9,14 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 export const login = async (req, res) => {
   try {
+    
     const { username, password } = req.body;
+    
     const result = await sql`SELECT * FROM users WHERE username = ${username}`;
     const user = result[0];
 
     if (user && (await bcrypt.compare(password, user.password))) {
+     
       const accessToken = jwt.sign({ username: user.username }, SECRET_KEY, {
         expiresIn: "1d",
       });
@@ -43,10 +46,12 @@ export const login = async (req, res) => {
         userRole: user.role,
       });
     } else {
-      res.status(401).json({ error: "Invalid username or password" });
+      
+      res.status(401).json({ message: "Invalid username or password" });
     }
   } catch (error) {
+    
     console.error("Error during login:", error);
-    res.status(500).json({ error: "Server error", details: error.message });
+    res.status(500).json({ message: "Server error :" + error.message });
   }
 };

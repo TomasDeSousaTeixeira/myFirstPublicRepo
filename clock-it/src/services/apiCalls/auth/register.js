@@ -9,9 +9,10 @@ export async function registerUser(userData){
         if (!response.ok) {
            throw new Error(`Registration failed: ${response.statusText}`);
         }
-      return
+      return response
       } catch (error) {
-        alert(error);
+        console.log("Registration failed: ", error);
+        throw error
       }
 
 }

@@ -19,16 +19,17 @@ export default function ClockButton({ action, setQrData, setAction }) {
   }
 
   async function getQRData(id, action) {
-    const response = await createQR(id, action)
-
-    if (response.ok) {
-      const responseData = await response.json();
-
-      setQrData(responseData.data);
-    } else {
-      const errorData = await response.json();
-      alert(errorData.message);
+    try {
+      const response = await createQR(id, action);
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        setQrData(responseData.data); 
+        return;
       }
+    } catch (error) {
+      alert(error.message); 
+    }
   }
 
   return (

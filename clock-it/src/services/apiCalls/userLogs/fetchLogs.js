@@ -20,6 +20,7 @@ export async function fetchLogs(id) {
     }
   } catch (err) {
     console.error("Error fetching logs:", err);
+    throw err
   }
 }
 
@@ -30,17 +31,16 @@ export async function fetchLastLogs(id) {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
+    const responseData = await response.json()
     if (response.status === 403) {
       return await requestNewAccessToken(fetchLastLogs, id);
     }
     if (!response.ok) {
-      throw new Error("Failed to fetch lastLogs");
+      throw new Error("Failed to fetch lastLogs: ", responseData.message);
     }
-
-    const data = await response.json();
-
-    return data.data;
+    return responseData.data;
   } catch (err) {
     console.error("Error fetching lastLogs:", err);
+    throw err
   }
 }

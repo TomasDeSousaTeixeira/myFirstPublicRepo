@@ -4,8 +4,7 @@ const redirectToLogin = () => {
 
 export const requestNewAccessToken = async (apiCallFunction, ...args) => {
     try {
-      // Attempt to refresh the token
-      const refreshResponse = await fetch("https://localhost:5000/refresh-token", {
+        const refreshResponse = await fetch("https://localhost:5000/refresh-token", {
         method: "POST",
         credentials: "include",
       });
@@ -15,11 +14,11 @@ export const requestNewAccessToken = async (apiCallFunction, ...args) => {
         return await apiCallFunction(...args);
       } else {
         // Refresh failed, redirect to login
-        alert("Failed to refresh token");
+        alert("Failed to refresh access token");
         redirectToLogin();
       }
     } catch (error) {
-      console.error("Error refreshing token:", error);
-      throw error;
+      alert("Failed to refresh access token");
+      redirectToLogin();
     }
   };

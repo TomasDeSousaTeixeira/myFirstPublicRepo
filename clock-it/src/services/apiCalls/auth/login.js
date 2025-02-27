@@ -9,12 +9,13 @@ export async function logInUser(userData) {
         });
        
         if (!response.ok) {
-          throw new Error("Login failed");
+          const errorData = await response.json(); 
+          throw new Error("Login failed. " + errorData.message)
         }
         
         return response;
         }catch (error) {
-            console.error("Error during login:", error);
-            alert("Login failed! Please check your username and password.");
-    }
+          console.error("Error during login:", error);
+          throw error
+        }
 }

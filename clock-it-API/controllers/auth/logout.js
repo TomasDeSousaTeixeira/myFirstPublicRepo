@@ -7,6 +7,6 @@ export const logout = (req, res) => {
   } catch (error) {
     console.error("Error during logout:", error);
 
-    res.status(500).json({ message: "Failed to log out. Please try again." });
+    res.status(500).json({ message: "Failed to log out. Error: " + error.message });
   }
 };
