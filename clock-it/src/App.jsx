@@ -13,12 +13,12 @@ function App() {
   return (
     <>
     {user && <Header/>}
-   <Routes>
-     <Route path="/adminPanel" element={(user && userRole === 'admin') ? <AdminPanel/> : <LoginForm />}/>
+    <Routes>
+     <Route path="/adminPanel" element={(user && userRole === 'admin') ? <AdminPanel/> : <Navigate to="/" />}/>
      <Route path="/" element={(user && userRole === 'user') ? <Navigate to="/home" /> : <LoginForm />} />
      <Route path="/register" element={<RegisterForm/>}/>
-     <Route path="/home" element={user && <Home/>}/>
-     <Route path="/myLogs" element={user && <MyLogs/>}/>
+     <Route path="/home" element={(user && userRole === 'user') ? <Home/> : <Navigate to="/" />}/>
+     <Route path="/myLogs" element={(user && userRole === 'user') ? <MyLogs/> : <Navigate to="/" />}/>
    </Routes>
    </>
   )
