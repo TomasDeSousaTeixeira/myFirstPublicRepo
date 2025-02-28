@@ -6,6 +6,10 @@ This application facilitates clocking in and out at a worksite using QR codes. T
 - They present this QR code to an on-site reader.
 - **Admins** log into the app and have a scanner available to scan QR codes and manage attendance.
 
+## There is already dummy data created for a user and an admin account:
+    .User -> username && password = 'user'
+    .Admin -> username && password = 'admin'
+
 The front-end is built using React with Vite, and the back-end is developed using Node.js with Express.js. The front-end supports HTTPS using `mkcert` for generating local SSL certificates.
 
 ## Prerequisites
@@ -78,7 +82,9 @@ DB_USER=your_username
 DB_PASSWORD=your_password
 DB_NAME=your_database_name
 DB_PORT=5432
-SECRET_KEY=your_secret_key
+
+SECRET_KEY="teste"
+(secret key has to be 'teste' so that the passwords work for the dummy data of the demo database)
 
 ## 4.6 - Run database migrations:
 
