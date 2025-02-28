@@ -6,6 +6,10 @@ This application facilitates clocking in and out at a worksite using QR codes. T
 - They present this QR code to an on-site reader.
 - **Admins** log into the app and have a scanner available to scan QR codes and manage attendance.
 
+## There is already dummy data created for a user and an admin account:
+    .User -> username && password = 'user'
+    .Admin -> username && password = 'admin'
+
 The front-end is built using React with Vite, and the back-end is developed using Node.js with Express.js. The front-end supports HTTPS using `mkcert` for generating local SSL certificates.
 
 ## Prerequisites
@@ -23,7 +27,6 @@ Before running the project, ensure you have the following installed:
 
 git clone https://github.com/TomasDeSousaTeixeira/myFirstPublicRepo.git
 cd clock-it
-
 
 ### 1.2 - Install dependencies:
 
@@ -62,12 +65,19 @@ cd clock-it-api
 
 npm install
 
-## 4.2 - Database Setup (SQLite)
+## 5 - Database Setup (SQLite)
 
-The back-end uses SQLite, which does not require a separate installation, just the sqlite3 that should be installed after 4.2.
-The demo database file testDatabase.db is already included in the project.
+The back-end uses SQLite, which does not require a separate installation, just the sqlite3 that should be installed after 4.1.
+The demo database file `testDatabase.db` is already included in the project.
 
-## 4.3 - Running the Back-End Server
+## 6 - Create a `.env.local` file in the root of the project
+
+### 6.1 - Set up a secret key in the `.env.local` for encryption and decryption:
+
+SECRET_KEY="teste" 
+(secret key has to be 'teste' so that the passwords work for the dummy data of the demo database)
+
+## 7 - Running the Back-End Server
 
 To start the API server, run:
 
