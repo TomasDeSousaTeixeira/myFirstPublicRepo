@@ -2,7 +2,9 @@
   "name": "clock-it-api",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+     "setup:postgres": "node setupPostgres.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
