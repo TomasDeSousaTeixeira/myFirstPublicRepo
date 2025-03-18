@@ -40,7 +40,7 @@ npm install
 (or use `pnpm install` if you prefer pnpm)
 ```
 
-## 2 - Setting Up HTTPS
+## 2 - Setting Up HTTPS (front-end)
 
 ### 2.1 - Install `mkcert` globally if you haven't already:
 
@@ -91,9 +91,25 @@ npm install
 
 ### 4.2.2 - Create a new local database
 
-## 4.3 - Create a `.env.local` file in the root of the project
+## 4.3 - Setting Up HTTPS (back-end)
 
-### 4.3.1 - Set up environment variables for database connection in `.env.local` plus a secret key for encryption and decryption:
+### 4.3.1 - Install `mkcert` globally if you haven't already:
+
+```
+mkcert -install
+```
+
+### 4.3.2 - Generate a local SSL certificate inside the project:
+
+```
+mkcert localhost
+```
+
+This will generate `localhost.pem` and `localhost-key.pem` files.
+
+## 4.4 - Create a `.env.local` file in the root of the project
+
+### 4.4.1 - Set up environment variables for database connection in `.env.local` plus a secret key for encryption and decryption:
 
 ```
 DB_HOST=localhost  
@@ -107,7 +123,7 @@ SECRET_KEY="teste"
 **(secret key has to be 'teste' so that the passwords already defined in the demo database work for 'user' and 'admin')*
 
 
-## 4.4 - Run database migrations:
+## 4.5 - Run database migrations:
 
 ```
 npm run setup:postgres
@@ -115,7 +131,7 @@ npm run setup:postgres
 ```
 
 
-## 4.5 - Running the Back-End Server
+## 4.6 - Running the Back-End Server
 
 To start the API server, run:
 
