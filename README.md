@@ -40,7 +40,7 @@ npm install
 (or use `pnpm install` if you prefer pnpm)
 ```
 
-## 2 - Setting Up HTTPS
+## 2 - Setting Up HTTPS (front-end)
 
 ### 2.1 - Install `mkcert` globally if you haven't already:
 
@@ -78,20 +78,37 @@ cd clock-it-API
 npm install
 (or `pnpm install` if using pnpm)
 ```
-## 5 - Database Setup (SQLite)
+
+## 5 - Setting Up HTTPS (back-end)
+
+### 5.1 - Install `mkcert` globally if you haven't already:
+
+```
+mkcert -install
+```
+
+### 5.2 - Generate a local SSL certificate inside the project:
+
+```
+mkcert localhost
+```
+
+This will generate `localhost.pem` and `localhost-key.pem` files.
+
+## 6 - Database Setup (SQLite)
 
 The back-end uses SQLite, which does not require a separate installation, just the sqlite3 that should be installed after 4.1.
 The demo database file `testDatabase.db` is already included in the project.
 
-## 6 - Create a `.env.local` file in the root of the project
+## 7 - Create a `.env.local` file in the root of the project
 
-### 6.1 - Set up a secret key in the `.env.local` for encryption and decryption:
+### 7.1 - Set up a secret key in the `.env.local` for encryption and decryption:
 ```
 SECRET_KEY="teste" 
 ```
 **(secret key has to be 'teste' so that the passwords already defined in the demo database work for 'user' and 'admin')*
 
-## 7 - Running the Back-End Server
+## 8 - Running the Back-End Server
 
 To start the API server, run:
 ```
