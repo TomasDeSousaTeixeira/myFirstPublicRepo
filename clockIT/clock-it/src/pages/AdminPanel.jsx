@@ -13,7 +13,7 @@ const QRCodeScanner = () => {
     try{
         const response = await clockUser(qrData);
         if (!response.ok) {
-          console.log("entrámos aqui no !response.ok!!!!")
+          
           const errorData = await response.json();
           throw new Error("Logout failed: ",errorData.message);
           }else{
@@ -22,7 +22,8 @@ const QRCodeScanner = () => {
           alert(`User clocked ${actionText} successfully!`);
           }
         }catch(err){
-         alert("Failed to clock user.", err.message); 
+     
+         alert("Failed to clock user. " + err.message); 
     }
   }
 

@@ -13,14 +13,10 @@ export async function clockUser(qrData) {
         }
 
       if (response.ok) {
-        console.log("entrámosno response ok do script")
-          
-
-          return response;
+        return response;
       } else {
-        console.log("entrámosno response not ok do script")
         const errorData = await response.json();
-        throw new Error("Logout failed: ",errorData.message);
+        throw new Error(errorData.message);
       }
   }catch(err){
         console.error("Error during Clock action:", err);
